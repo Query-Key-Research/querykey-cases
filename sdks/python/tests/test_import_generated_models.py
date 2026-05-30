@@ -18,8 +18,8 @@ import unittest
 class TestImportGeneratedModels(unittest.TestCase):
     def setUp(self):
         # Ensure local package and generated modules are importable
-        sys.path.insert(0, "/Volumes/Code AI/Platforms/Okey Cases/parallel-sdk-development/python-sdk")
-        sys.path.insert(0, "/Volumes/Code AI/Platforms/Okey Cases/parallel-sdk-development/python-sdk/generated")
+        sys.path.insert(0, "/Volumes/Code AI/dev-plane/Okey Cases/parallel-sdk-development/python-sdk")
+        sys.path.insert(0, "/Volumes/Code AI/dev-plane/Okey Cases/parallel-sdk-development/python-sdk/generated")
 
     def test_import_core_models(self):
         from querykey_cases_sdk import ApiClient, Configuration  # noqa: F401

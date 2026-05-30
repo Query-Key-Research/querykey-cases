@@ -400,6 +400,25 @@
         },
         "required": ["suggestion"]
       }
+      ,"DownloadIntentFeedbackRequest": {
+        "type": "object",
+        "properties": {
+          "outcome": {"type": "string", "enum": ["confirm", "derive", "refute", "rollback", "successful_application", "derived_application", "failed_application", "rollback_invoked"]},
+          "event_type": {"type": "string", "enum": ["successful_application", "derived_application", "failed_application", "rollback_invoked"]},
+          "notes": {"type": "string"},
+          "metadata": {"type": "object", "additionalProperties": true}
+        }
+      }
+      ,"DownloadIntentFeedbackResponse": {
+        "type": "object",
+        "properties": {
+          "status": {"type": "string", "example": "feedback_received"},
+          "download_intent_id": {"type": "string"},
+          "event_type": {"type": "string"},
+          "submitted_at": {"type": "string", "format": "date-time"}
+        },
+        "required": ["status", "download_intent_id", "event_type", "submitted_at"]
+      }
     }
   },
   "paths": {
@@ -763,7 +782,8 @@
     }
   },
   "/api/v1/cases/{id}/submit": {"post": {"summary": "Submit draft for review","security": [{"SessionCookie": []},{"ApiKeyAuth": []}],"parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "string"}}],"responses": {"200": {"description": "Submitted"}, "429": {"description": "Quota exceeded","content": {"application/json": {"schema": {"$ref": "#/components/schemas/QuotaExceeded"}}}}}}},
-  "/api/v1/cases/{id}/publish": {"post": {"summary": "Publish case","security": [{"SessionCookie": []}],"parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "string"}}],"responses": {"200": {"description": "Published"}, "429": {"description": "Quota exceeded","content": {"application/json": {"schema": {"$ref": "#/components/schemas/QuotaExceeded"}}}}}}}
+  "/api/v1/cases/{id}/publish": {"post": {"summary": "Publish case","security": [{"SessionCookie": []}],"parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "string"}}],"responses": {"200": {"description": "Published"}, "409": {"description": "Not publishable"}, "429": {"description": "Quota exceeded","content": {"application/json": {"schema": {"$ref": "#/components/schemas/QuotaExceeded"}}}}}}},
+  "/api/v1/cases/{id}/unpublish": {"post": {"summary": "Unpublish case and reset verification","security": [{"SessionCookie": []}],"parameters": [{"name": "id", "in": "path", "required": true, "schema": {"type": "string"}}],"responses": {"200": {"description": "Unpublished"}, "403": {"description": "Admin required"}, "404": {"description": "Not found"}}}}
   ,"/api/v1/collections": {
     "get": {
       "summary": "List curated collections",
@@ -896,6 +916,32 @@
         "402": {"description": "Plan upgrade required", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/PlanUpgradeRequired"}}}},
         "404": {"description": "Not found", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/ErrorResponse"}}}},
         "429": {"description": "Quota exceeded", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/QuotaExceeded"}}}}
+      }
+    }
+  }
+  ,"/api/v1/download-intents/{intentId}/feedback": {
+    "post": {
+      "summary": "Submit feedback for a fulfilled download intent",
+      "tags": ["cases"],
+      "security": [{"SessionCookie": []},{"ApiKeyAuth": []}],
+      "parameters": [
+        {"name": "intentId", "in": "path", "required": true, "schema": {"type": "string"}}
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {"$ref": "#/components/schemas/DownloadIntentFeedbackRequest"}
+          }
+        }
+      },
+      "responses": {
+        "202": {"description": "Feedback accepted", "content": {"application/json": {"schema": {"$ref": "#/components/schemas/DownloadIntentFeedbackResponse"}}}},
+        "400": {"description": "Invalid feedback outcome"},
+        "401": {"description": "Authentication required"},
+        "403": {"description": "Principal mismatch"},
+        "404": {"description": "Download intent not found"},
+        "409": {"description": "Feedback already recorded or intent not fulfilled"}
       }
     }
   }

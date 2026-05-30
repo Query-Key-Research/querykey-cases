@@ -33,7 +33,7 @@ function candidateBases() {
     process.env.PUBLIC_BASE_URL,
     // Preferred edge/dev domain (user specified)
     'https://www.querykey.local',
-    // Host-mapped portal (portable container) fallback
+    // Host-mapped portal (native local server) fallback
     'http://127.0.0.1:8081',
     // Fast localhost fallback to avoid long hangs
     'http://127.0.0.1:8080',

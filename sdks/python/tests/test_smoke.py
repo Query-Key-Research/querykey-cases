@@ -14,8 +14,8 @@ pytest -q (optional)
 ==========================================================================
 """
 import sys
-sys.path.insert(0, "/Volumes/Code AI/Platforms/Okey Cases/parallel-sdk-development/python-sdk")
-sys.path.insert(0, "/Volumes/Code AI/Platforms/Okey Cases/parallel-sdk-development/python-sdk/generated")
+sys.path.insert(0, "/Volumes/Code AI/dev-plane/Okey Cases/parallel-sdk-development/python-sdk")
+sys.path.insert(0, "/Volumes/Code AI/dev-plane/Okey Cases/parallel-sdk-development/python-sdk/generated")
 from querykey_cases import QueryKeyClient
 
 def test_import_and_construct():

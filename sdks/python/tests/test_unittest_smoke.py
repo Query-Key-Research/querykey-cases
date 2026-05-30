@@ -18,8 +18,8 @@ import unittest
 class TestUnitSmoke(unittest.TestCase):
     def setUp(self):
         # Ensure local package is importable when run from repo root
-        sys.path.insert(0, "/Volumes/Code AI/Platforms/Okey Cases/parallel-sdk-development/python-sdk")
-        sys.path.insert(0, "/Volumes/Code AI/Platforms/Okey Cases/parallel-sdk-development/python-sdk/generated")
+        sys.path.insert(0, "/Volumes/Code AI/dev-plane/Okey Cases/parallel-sdk-development/python-sdk")
+        sys.path.insert(0, "/Volumes/Code AI/dev-plane/Okey Cases/parallel-sdk-development/python-sdk/generated")
 
     def test_construct(self):
         from querykey_cases import QueryKeyClient

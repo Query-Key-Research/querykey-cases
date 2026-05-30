@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /**
 ==========================================================================
 @fileOverview
@@ -15,7 +16,6 @@ Falls back to JSON-RPC loop if @modelcontextprotocol/sdk is unavailable.
 @timestamp
 2026-02-03 00:00:00 UTC
 ==========================================================================*/
-#!/usr/bin/env node
 
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
