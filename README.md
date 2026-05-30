@@ -26,7 +26,7 @@ curl -H 'Authorization: Bearer YOUR_TOKEN' \
 ## Documentation and Specs
 
 - Docs: <https://querykey.com/docs/>
-- OpenAPI: <https://raw.githubusercontent.com/RellWilson/querykey-cases/main/openapi.v1.json>
+- OpenAPI: <https://raw.githubusercontent.com/Query-Key-Research/querykey-cases/main/openapi.v1.json>
 
 ## SDKs & MCP
 
